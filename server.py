@@ -71,6 +71,16 @@ def pokemon_all():
     resp, code = fns[request.method](request)  
     return jsonify(resp)
 
+@server.route('/api/pokemon/<int:poke_id>', methods=['GET'])
+def pokemon_single(poke_id):
+    fns = {
+        'GET' : pokemon.show,
+    }
+    resp, code = fns[request.method](request,poke_id)  
+    return jsonify(resp),code
+
+
+
 # When the interprtr runs a module, the __name__ variable will be set as __main__ if the module that is being run is the main program
 
 if __name__ == "__main__":
