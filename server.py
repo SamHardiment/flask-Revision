@@ -61,6 +61,16 @@ def pokemon_handler(pokemon_id):
     return jsonify(resp)
 
 
+# //////////////////////////////////////////
+#///tom added
+@server.route('/api/pokemon', methods=['GET'])
+def pokemon_all():
+    fns = {
+        'GET' : pokemon.index,
+    }
+    resp, code = fns[request.method](request)  
+    return jsonify(resp)
+
 # When the interprtr runs a module, the __name__ variable will be set as __main__ if the module that is being run is the main program
 
 if __name__ == "__main__":

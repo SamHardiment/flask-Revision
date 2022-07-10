@@ -1,4 +1,5 @@
 import json
+from multiprocessing.context import assert_spawning
 
 class TestAPICase():
     def test_welcome(self, api):
@@ -16,6 +17,11 @@ class TestAPICase():
         res = api.get('/pokemon/2')
         assert res.status == "200 OK"
         assert res.json['name'] == "wartortle"
+
+    def test_api_getall(self, api):
+        res = api.get('/api/pokemon')
+        assert res.status == '200 OK'
+        assert len(res.json) == 3
 
     # def test_post_pokemon_handler(self, api):
     #     mock_pokemon = json.dumps({'name': 'pokemon1', "nickname": "sam", "type": "water", "level": 2})
