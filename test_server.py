@@ -31,6 +31,11 @@ class TestAPICase():
         assert res.status == '200 OK'
         assert res.json['name']=="blastoise"
 
+    # test from tom
+    def test_api_single_delete(self, api):
+        res = api.delete('/api/pokemon/1')
+        assert res.status == '204 NO CONTENT'
+
     # def test_post_pokemon_handler(self, api):
     #     mock_pokemon = json.dumps({'name': 'pokemon1', "nickname": "sam", "type": "water", "level": 2})
     #     mock_headers = {'Content-Type': 'application/json'}

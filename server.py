@@ -71,10 +71,11 @@ def pokemon_all():
     resp, code = fns[request.method](request)  
     return jsonify(resp)
 
-@server.route('/api/pokemon/<int:poke_id>', methods=['GET'])
+@server.route('/api/pokemon/<int:poke_id>', methods=['GET','DELETE'])
 def pokemon_single(poke_id):
     fns = {
         'GET' : pokemon.show,
+        'DELETE' : pokemon.destroy
     }
     resp, code = fns[request.method](request,poke_id)  
     return jsonify(resp),code

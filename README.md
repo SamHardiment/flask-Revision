@@ -34,3 +34,6 @@ passing test
 
 
 id issue found in monkeypatch, wartortle and blast' shared the same id, 2
+
+
+in the pipenv shell, *flask run* to checkout in browser, postman, hoppscotch
