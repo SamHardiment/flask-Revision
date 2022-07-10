@@ -7,7 +7,7 @@ def api(monkeypatch):
     test_pokemon = [
         {'id': 1, 'name': 'squirtle'},
         {'id': 2, 'name': 'wartortle'},
-        {'id': 2, 'name': 'blastoise'},
+        {'id': 3, 'name': 'blastoise'},
     ]
     monkeypatch.setattr(pokemon, "pokemonlist", test_pokemon)
     api = server.server.test_client()
