@@ -9,6 +9,8 @@ class TestAPICase():
         assert res.status == "200 OK"
         assert  b"<h2>Home</h2>" in res.data
 
+######################   POKEMON
+
     # Displays data in home.html
     def test_get_pokemon_handler(self, api):
         res = api.get("/pokemon")
@@ -57,7 +59,25 @@ class TestAPICase():
         assert res.json['id'] == 4
         assert res.json['name'] == "pokemon"
 
-    ### Error tests
+
+    ########################### Form
+
+    def test_subscribe_handler(self, api):
+        res = api.get("/subscribe")
+        assert res.status == "200 OK"
+        assert b"<h1>Subscribe To My Pokemon Newsletter</h1>" in res.data
+        assert "Subscribe" in res.text
+
+    def test_submit(self, api):
+        obj = {"firstName": "Alex", "lastName": "Carlino-Rackett", "email": "alex@alex.com"}
+        res = api.post("/submit", data=obj)
+        
+        assert res.status == "201 CREATED"
+    
+
+
+
+    ########################### Error tests
 
     # Not Found - 404
     def test_not_found(self, api):
@@ -73,6 +93,14 @@ class TestAPICase():
         assert res.status == '400 BAD REQUEST'
         assert 'Oops!' in res.json['message']
 
+    # Method Not ALLOWED - 405
+    def test_method_not_allowed(self, api):
+        obj = {"firstName": "Alex"}
+        res = api.post('/subscribe', data=obj)
+        res2 = api.get("/form")
+        assert res.status == '405 METHOD NOT ALLOWED'
+        assert 'Oops!' in res.json['message']
+        # So the route has no POST method hence the error
     # Internal Error - 500
     # def test_internal_error(self, api):
     #     res = api.get('/pokemon/8')

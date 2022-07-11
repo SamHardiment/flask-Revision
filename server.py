@@ -90,7 +90,6 @@ def submit():
     # server.starttls()
     # server.login("sender_address", "sender_password")
     # server.sendmail("sender_address", request.form["emailInput"], message)
-
     fns = {
         'POST' : subscribers.create,
     }
@@ -141,6 +140,10 @@ def handle_404(err):
 @server.errorhandler(exceptions.BadRequest)
 def handle_400(err):
     return {'message': f'Oops! {err}'}, 400
+
+@server.errorhandler(exceptions.MethodNotAllowed)
+def handle_405(err):
+    return {'message': f'Oops! {err}'}, 405
 
 @server.errorhandler(exceptions.InternalServerError)
 def handle_500(err):
