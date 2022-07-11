@@ -57,12 +57,15 @@ class TestAPICase():
         assert res.json['id'] == 4
         assert res.json['name'] == "pokemon"
 
-    # Error tests
+    ### Error tests
+
+    # Not Found - 404
     def test_not_found(self, api):
         res = api.get('/bob')
         assert res.status == '404 NOT FOUND'
         assert 'Oops!' in res.json['message']
 
+    # Bad Request - 400
     def test_bad_request(self, api):
         mock_pokemon = json.dumps({"firstName": "sam"})
         mock_headers = {'Content-Type': 'application/json'}
@@ -70,6 +73,7 @@ class TestAPICase():
         assert res.status == '400 BAD REQUEST'
         assert 'Oops!' in res.json['message']
 
+    # Internal Error - 500
     # def test_internal_error(self, api):
     #     res = api.get('/pokemon/8')
     #     assert res.status == '500 INTERNAL ERROR'
