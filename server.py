@@ -28,7 +28,7 @@ def home():
 def pokemonList_handler():
     fns = {
         'GET': pokemon.index,
-        # 'POST': pokemon.create
+        'POST': pokemon.create
     }
     if request.method == 'POST':
         obj = { "name": request.form['name'], 'nickname': request.form['nickname'],  "type": request.form["type"], "level": request.form["level"]}
@@ -36,23 +36,6 @@ def pokemonList_handler():
     elif request.method == 'GET':
         resp, code = fns[request.method](request)
     return render_template('pokemon/home.html',  pokemon = resp), code
-
-# @server.route('/pokemon', methods=['GET'])
-# def pokemonList_get():
-#     fns = {
-#         'GET': pokemon.index,
-#     }
-#     resp, code = fns[request.method](request)
-#     return render_template('pokemon/home.html', pokemon = resp), code
-
-# @server.route('/pokemon', methods=['POST'])
-# def pokemonList_POST():
-#     fns = {
-#         'POST': pokemon.create,
-#     }
-#     obj = { "name": request.form['name'], 'nickname': request.form['nickname'],  "type": request.form["type"], "level": request.form["level"]}
-#     resp, code = fns[request.method](jsonify(obj))
-#     return render_template('pokemon/home.html', pokemon = resp), code
 
 
 @server.route('/pokemon/<int:pokemon_id>', methods=['GET', 'PATCH', 'DELETE'])
