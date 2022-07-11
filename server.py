@@ -96,7 +96,7 @@ def pokemon_single(poke_id):
 
 @server.route('/subscribe')
 def subscribe_handler():
-    title = "Subscribe to my email newsletter"
+    title = "Subscribe"
     return render_template("form/subscribe.html", title=title)
 
 @server.route('/submit', methods=["POST"])
@@ -149,6 +149,19 @@ def submit():
 #         return '<h2>The token is invalid!</h2>'
 #     return "<h2>The token works!</h2>"
 
+#################### ERRORS
+
+@server.errorhandler(exceptions.NotFound)
+def handle_404(err):
+    return {'message': f'Oops! {err}'}, 404
+
+@server.errorhandler(exceptions.BadRequest)
+def handle_400(err):
+    return {'message': f'Oops! {err}'}, 400
+
+@server.errorhandler(exceptions.InternalServerError)
+def handle_500(err):
+    return {'message': f"It's not you, it's us"}, 500
 
 
 

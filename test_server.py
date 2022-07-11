@@ -6,8 +6,8 @@ class TestAPICase():
         res = api.get('/')
         assert res.status == "200 OK"
 
-    def test_get_pokemon_handler(self, api, accept_json):
-        res = api.get("/pokemon", headers=accept_json)
+    def test_get_pokemon_handler(self, api):
+        res = api.get("/pokemon")
         # print(dir(res))
         print(res)
         assert res.status == "200 OK"
@@ -43,3 +43,20 @@ class TestAPICase():
         res = api.delete('/api/pokemon/1')
         assert res.status == '204 NO CONTENT'
 
+    # Error tests
+    def test_not_found(self, api):
+        res = api.get('/bob')
+        assert res.status == '404 NOT FOUND'
+        assert 'Oops!' in res.json['message']
+
+    def test_bad_request(self, api):
+        mock_pokemon = json.dumps({"firstName": "sam"})
+        mock_headers = {'Content-Type': 'application/json'}
+        res = api.post('/pokemon', data=mock_pokemon, headers=mock_headers)
+        assert res.status == '400 BAD REQUEST'
+        assert 'Oops!' in res.json['message']
+
+    def test_internal_error(self, api):
+        res = api.get('/pokemon')
+        assert res.status == '500 INTERNAL ERROR'
+        assert "It's not you, it's us" in res.json['message']
