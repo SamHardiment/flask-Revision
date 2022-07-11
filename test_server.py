@@ -7,8 +7,8 @@ class TestAPICase():
 
     def test_get_pokemon_handler(self, api):
         res = api.get("/pokemon")
-        print('res is', res)
-        print('res.json is', res.json)
+        # print(dir(res))
+        print(res)
         assert res.status == "200 OK"
         assert len(res.json) == 3
 
@@ -24,5 +24,3 @@ class TestAPICase():
     #     res = api.post('/pokemon', data=mock_pokemon, headers=mock_headers)
     #     assert res.status == '201 CREATED'
     #     assert res.json['pokemon']['id'] == 4
-
-
