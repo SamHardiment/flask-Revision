@@ -6,7 +6,7 @@ class TestAPICase():
         assert res.status == "200 OK"
 
     def test_get_pokemon_handler(self, api):
-        res = api.get("/pokemon")
+        res = api.get("/pokemon", headers=accept_json)
         # print(dir(res))
         print(res)
         assert res.status == "200 OK"
