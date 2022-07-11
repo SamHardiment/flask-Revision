@@ -23,7 +23,7 @@ def home():
 def pokemonList_handler():
     fns = {
         'GET': pokemon.index,
-        'POST': pokemon.create
+        # 'POST': pokemon.create
     }
     if request.method == 'POST':
         obj = { "name": request.form['name'], 'nickname': request.form['nickname'],  "type": request.form["type"], "level": request.form["level"]}
@@ -59,6 +59,29 @@ def pokemon_handler(pokemon_id):
     }
     resp, code = fns[request.method](request, uid=pokemon_id)
     return jsonify(resp)
+
+
+# //////////////////////////////////////////
+#///tom added
+@server.route('/api/pokemon', methods=['GET',"POST"])
+def pokemon_all():
+    fns = {
+        'GET' : pokemon.index,
+        'POST' : pokemon.create
+    }
+    resp, code = fns[request.method](request)  
+    return jsonify(resp), code 
+
+@server.route('/api/pokemon/<int:poke_id>', methods=['GET','DELETE',])
+def pokemon_single(poke_id):
+    fns = {
+        'GET' : pokemon.show,
+        'DELETE' : pokemon.destroy,
+        
+    }
+    resp, code = fns[request.method](request,poke_id)  
+    return jsonify(resp),code
+
 
 
 # When the interprtr runs a module, the __name__ variable will be set as __main__ if the module that is being run is the main program
