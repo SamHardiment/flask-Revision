@@ -23,7 +23,7 @@ def home():
 def pokemonList_handler():
     fns = {
         'GET': pokemon.index,
-        'POST': pokemon.create
+        # 'POST': pokemon.create
     }
     if request.method == 'POST':
         obj = { "name": request.form['name'], 'nickname': request.form['nickname'],  "type": request.form["type"], "level": request.form["level"]}
@@ -63,19 +63,21 @@ def pokemon_handler(pokemon_id):
 
 # //////////////////////////////////////////
 #///tom added
-@server.route('/api/pokemon', methods=['GET'])
+@server.route('/api/pokemon', methods=['GET',"POST"])
 def pokemon_all():
     fns = {
         'GET' : pokemon.index,
+        'POST' : pokemon.create
     }
     resp, code = fns[request.method](request)  
-    return jsonify(resp)
+    return jsonify(resp), code 
 
-@server.route('/api/pokemon/<int:poke_id>', methods=['GET','DELETE'])
+@server.route('/api/pokemon/<int:poke_id>', methods=['GET','DELETE',])
 def pokemon_single(poke_id):
     fns = {
         'GET' : pokemon.show,
-        'DELETE' : pokemon.destroy
+        'DELETE' : pokemon.destroy,
+        
     }
     resp, code = fns[request.method](request,poke_id)  
     return jsonify(resp),code
