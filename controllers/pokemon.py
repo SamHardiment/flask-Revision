@@ -11,9 +11,10 @@ def index(req):
 
 def create(req):
     new_pokemon = req.get_json()
-    new_pokemon['id'] = (sorted([m['id'] for m in pokemonlist])[-1] + 1)
+    new_pokemon['id'] = (sorted([m['id'] for m in pokemonlist])[-1] + 1) #couldnt be assed looking at this, too late at night :S 
     pokemonlist.append(new_pokemon)
-    return pokemonlist, 201
+    # return pokemonlist, 201 #changed because i think u need to return the new word
+    return new_pokemon, 201
 
 def show(req, uid):
     return find_by_uid(uid), 200
