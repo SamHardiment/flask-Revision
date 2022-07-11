@@ -6,7 +6,7 @@ class TestAPICase():
         res = api.get('/')
         assert res.status == "200 OK"
 
-    def test_get_pokemon_handler(self, api):
+    def test_get_pokemon_handler(self, api, accept_json):
         res = api.get("/pokemon", headers=accept_json)
         # print(dir(res))
         print(res)
@@ -18,6 +18,13 @@ class TestAPICase():
         assert res.status == "200 OK"
         assert res.json['name'] == "wartortle"
 
+    # def test_post_pokemon_handler(self, api):
+    #     mock_pokemon = json.dumps({'name': 'pokemon1', "nickname": "sam", "type": "water", "level": 2})
+    #     mock_headers = {'Content-Type': 'application/json'}
+
+    #     res = api.post('/pokemon', data=mock_pokemon, headers=mock_headers)
+    #     assert res.status == '201 CREATED'
+    #     assert res.json['pokemon']['id'] == 4
 
     # test from tom
     def test_api_getall(self, api):
@@ -36,10 +43,3 @@ class TestAPICase():
         res = api.delete('/api/pokemon/1')
         assert res.status == '204 NO CONTENT'
 
-    # def test_post_pokemon_handler(self, api):
-    #     mock_pokemon = json.dumps({'name': 'pokemon1', "nickname": "sam", "type": "water", "level": 2})
-    #     mock_headers = {'Content-Type': 'application/json'}
-
-    #     res = api.post('/pokemon', data=mock_pokemon, headers=mock_headers)
-    #     assert res.status == '201 CREATED'
-    #     assert res.json['pokemon']['id'] == 4

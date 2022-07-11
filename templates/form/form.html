@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block title %} {{title}} {% endblock %} {% block
+content %}
+<div class="container">
+  <h1>Welcome to the Pokedex!</h1>
+  <br />
+  {% for s in sub if s['id'] == sub[-1]['id'] %}
+  <div>
+    <h4>Thanks for joining {{s.firstName}}</h4>
+    <p>We will send pokemon updates to {{s.email}}</p>
+  </div>
+</div>
+{% endfor %}
+<a href="{{url_for('home')}}">Return to the home page </a>
+
+{% endblock%}

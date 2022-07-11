@@ -9,6 +9,7 @@ waitress = "*"
 flask-cors = "*"
 pytest = "*"
 pytest-cov = "*"
+flask-mailman = "*"
 
 [dev-packages]
 
